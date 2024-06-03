@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Página do Clima</title>
+</head>
+<body>
+    <main>
+        <div id="temp-now" class="bg">
+            <!-- campo da localização -->
+            <div id="location" class="flex-row">
+                <img src="./assets/pin.svg" alt="icone de local">
+                <strong id="city">Brasília-DF</strong>
+            </div>
+            <!-- campo com a temperatura atual, máxima e mínima -->
+            <div id="temperature" class="flex-row">
+                <div class="temp-container flex-column">
+                    <!-- temperatura atual -->
+                    <span id="temp-live">27</span>
+                    <div class="minmax">
+                        <span id="max-temp">max</span>
+                        <span id="min-temp">min</span>
+                    </div>
+                </div>
+                <span class="celsius">ºC</span>
+            </div>
+            <div id="stats" class="flex-row">
+                <div class="info flex-row">
+                    <img src="assets/wind.png" alt="icone de vento">
+                    <div class="left flex-column">
+                        <span class="title">Vento</span>
+                        <div class="text">
+                            <span class="number">17</span>
+                            <span class="unit">km/h</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info flex-row">
+                    <img src="assets/umidade.png" alt="icone de umidade">
+                    <div class="left flex-column">
+                        <span class="title">Umidade</span>
+                        <div class="text">
+                            <span class="number">31</span>
+                            <span class="unit">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="info flex-row">
+                    <img src="assets/rain.svg" alt="icone de chuva">
+                    <div class="left flex-column">
+                        <span class="title">Chuva</span>
+                        <div class="text">
+                            <span class="number">10</span>
+                            <span class="unit">%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="air-quality" class="bg">
+            <div id="air-title" class="flex-row">
+                <img src="assets/leaf.png" alt="icone de folha">
+                <span>Qualidade do ar</span>
+            </div>
+            <div id="air-text" class="flex-column">
+                <span class="text-title">Boa</span>
+                <span class="text-number">21</span>
+            </div>
+            <div id="air-info" class="flex-row">
+                <div class="gap flex-column">
+                    <span class="unit">12.9</span>
+                    <span class="title">PM2.5</span>
+                </div>
+                <div class="gap flex-column">
+                    <span class="unit">12.9</span>
+                    <span class="title">PM10</span>
+                </div>
+                <div class="gap flex-column">
+                    <span class="unit">2.1</span>
+                    <span class="title">SO<sub>2</sub></span>
+                </div>
+                <div class="gap flex-column">
+                    <span class="unit">1.4</span>
+                    <span class="title">NO<sub>2</sub></span>
+                </div>
+                <div class="gap flex-column">
+                    <span class="unit">21.2</span>
+                    <span class="title">O<sub>3</sub></span>
+                </div>
+                <div class="gap flex-column">
+                    <span class="unit">0.7</span>
+                    <span class="title">CO</span>
+                </div>
+            </div>
+        </div>
+        <div id="sun-time" class="bg">
+            <div class="sun-title flex-row">
+                <img src="assets/time.png" alt="icone do sol">
+                <strong>Horário do sol</strong>
+            </div>
+            <div class="sun-chart-container">
+                <div class="sun-chart">
+                    <div class="chart">
+                        <img src="assets/grafico-sol.svg" alt="grafico de horario do nascer do sol ate o por do sol">
+                    </div>
+                    <time datetime="" class="now">17:48</time>
+                </div>
+            </div>
+            <div class="time">
+                <time datetime="" class="sunrise">05:45</time>
+                <time datetime="" class="sunset">18:23</time>
+            </div>
+        </div>
+        <div id="week-weather" class="bg flex-row">
+            <div id="day-1" class="day flex-column">
+                <span class="unit">Segunda</span>
+                <img src="assets/chuvoso.png" alt="">
+                <div class="minmax">
+                    <span id="max-temp">max</span>
+                    <span id="min-temp">min</span>
+                </div>
+            </div>
+            <div id="day-2" class="day flex-column">
+                <span class="unit">Ontem</span>
+                <img src="assets/ensolarado.png" alt="">
+                <div class="minmax">
+                    <span id="max-temp">max</span>
+                    <span id="min-temp">min</span>
+                </div>
+            </div>
+            <div id="day-3" class="day flex-column">
+                <span class="unit">Hoje</span>
+                <img src="assets/nublado.svg" alt="">
+                <div class="minmax">
+                    <span id="max-temp">max</span>
+                    <span id="min-temp">min</span>
+                </div>
+            </div>
+            <div id="day-4" class="day flex-column">
+                <span class="unit">Amanhã</span>
+                <img src="assets/trovoada.svg" alt="">
+                <div class="minmax">
+                    <span id="max-temp">max</span>
+                    <span id="min-temp">min</span>
+                </div>
+            </div>
+            <div id="day-5" class="day flex-column">
+                <span class="unit">Sábado</span>
+                <img src="assets/sol-coberto.svg" alt="">
+                <div class="minmax">
+                    <span id="max-temp">max</span>
+                    <span id="min-temp">min</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

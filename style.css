@@ -1,0 +1,401 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+    font-size: 62.5%;
+    font-family: Lato, sans-serif;
+    
+}
+
+html {
+    min-width: 45rem;
+}
+
+body {
+    font-size: 1.6rem;
+    background-color: #8E87FA;
+}
+
+main {
+    min-height: 100vh;
+    background: 
+        url(./assets/Background.png)
+        no-repeat
+        center/cover;
+    display: grid;
+    place-content: center;
+    gap: 2.4rem;
+}
+
+.bg {
+    background-color: #6D67D0;
+    border-radius: 1rem;
+    filter: blur();
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#temp-now {
+    background: url(./assets/temp-bg.png)
+    no-repeat
+    center/cover;
+    /* width: 48rem; */
+    /* height: 48rem; */
+    position: relative;
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+}
+#temp-now::before {
+    content: "";
+    width: 17.6rem;
+    height: 17.6rem;
+    background: url(./assets/clouds.png) no-repeat;
+    position: absolute;
+    top: -5.6rem;
+    left: -5.6rem;
+}
+#location {
+    justify-self: end;
+    padding: 3.2rem 3.2rem 0;
+    gap: 0.4rem;
+}
+#location strong {
+    font-size: 1.4rem;
+    color: #C2BFF4;
+}
+#temperature {
+    gap: .4rem;
+    color: #fff;
+    margin-top: 7rem;
+}
+ 
+.temp-container {
+    font-size: 8.8rem;
+}
+
+.celsius {
+    font-size: 2.4rem;
+    font-weight: bold;
+    margin-top: 1.7rem;
+    color: #DAD8F7;
+}
+
+.minmax {
+    font-size: 2rem;
+}
+
+#min-temp {
+    color: #C2BFF4;
+}
+
+#max-temp {
+    color: #FFFFFF;
+}
+
+#stats {
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.info {
+    background-color: #6560c89f;
+    padding: 1.2rem 1.6rem;
+    border-radius: .6rem;
+    width: 14.6rem;
+    justify-content: start;
+    gap: 1.2rem;
+}
+
+.title {
+    font-size: 1.2rem;
+    color: #E7E6FB;
+}
+
+.left {
+    align-items: flex-start;
+}
+
+.text .number {
+    font-size: 1.8rem;
+    color: #E7E6FB;
+}
+
+.unit {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #DAD8F7;
+}
+
+#air-quality {
+    display: grid;
+    grid-template-rows: max-content 1fr max-content;
+    /* width: 27.7rem; */
+    /* height: 24.4rem; */
+}
+
+#air-title {
+    padding: 3.2rem;
+    gap: .8rem;
+}
+
+#air-title span {
+    color: #DAD8F7;
+}
+
+.air-green {
+    color: #87EBCD;
+}
+.text-title {
+    font-size: 1.8rem;
+    color: #87EBCD;
+}
+
+.text-number {
+    font-size: 4rem;
+    color: #E7E6FB;
+}
+
+#air-info {
+    gap: 1.6rem;
+    padding-bottom: 1.2rem;
+}
+
+#air-info .unit {
+    color: #87EBCD;
+}
+
+.gap {
+    gap: .2rem;
+}
+
+sub {
+    font-size: .7rem;
+}
+
+#sun-time {
+    display: grid;
+    grid-template-rows: max-content  1fr;
+    /* width: 27.7rem; */
+    /* height: 24.4rem; */
+}
+
+.sun-chart {
+    --pos-x: 50;
+    margin: auto;
+    position: relative;
+    width: 21.6rem;
+    height: 21.6rem;
+}
+
+.sun-chart::before {
+    content: "";
+    width: 1.2rem;
+    height: 1.2rem;
+    position: absolute;
+    background: #F6C833;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    margin: -0.6rem;
+
+    transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180))) translate(10.7rem);
+}
+
+.chart {
+    width: 21.6rem;
+    height: 10.8rem;
+    overflow: hidden;
+}
+
+.chart::before {
+    content: "";
+    width: 21.2rem;
+    height: 21.2rem;
+    display: block;
+    border-radius: 50%;
+
+    background: linear-gradient(
+        180deg,
+        rgba(251, 219, 96, 0.2) 0%,
+        rgba(251, 219, 96, 0) 101.89%
+    );
+
+    --mask: linear-gradient(0deg, white 50%, transparent 0%);
+    mask: var(--mask);
+    -webkit-mask: var(--mask);
+    rotate: calc(1.8deg * var(--pos-x));
+}
+
+.chart img{
+    position: absolute;
+    top: 0;
+}
+
+.now {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-55%);
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.time {
+    display: flex;
+    width: 100%;
+    padding: 1rem 1.6rem;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 1rem;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.sun-title {
+    padding: 3.2rem;
+    gap: .8rem;
+}
+.sun-title strong {
+    font-size: 1.6rem;
+    color: #DAD8F7;
+}
+
+#week-weather {
+    /* width: 57.8rem; */
+    padding: 4rem;
+    gap: 1.2rem;
+}
+
+#week-weather .minmax {
+    font-size: 1.6rem;
+}
+
+.day {
+    width: 9rem;
+    gap: 1.6rem; 
+}
+
+
+@media (min-width: 1200px) {
+    main {
+        grid-template-columns: 48rem 27.7rem 27.7rem;
+        grid-template-rows: 24.4rem;
+    }
+
+    #temp-now {
+        grid-row: 1/3;
+    }
+
+    #week-weather {
+        grid-column: 2/4;
+    }
+}
+
+@media (min-width: 798px) and (max-width: 1200px){
+    main {
+        grid-template-columns: 27.7rem 27.7rem;
+        grid-template-rows: 24.4rem 24.4rem;
+    }
+
+    #temp-now {
+        grid-column: 1/3;
+        grid-row: 1/2;
+    }
+
+    #temperature{
+        margin-top: -.1rem;
+    }
+
+    .temp-container {
+        line-height: 5.5rem;
+    }
+
+    .celsius {
+        margin-top: -.9rem;
+    }
+
+    #stats {
+        padding: 1.2rem 2rem;
+    }
+
+    #stats .info {
+        width: 17rem;
+    }
+
+    #week-weather {
+        grid-column: 1/3;
+    }
+}
+
+@media (max-width: 798px) {
+    main {
+        padding: 5rem;
+        grid-template-columns: 48rem;
+        grid-template-rows: 24.4rem 24.4rem 24.4rem 24.4rem;
+    }
+
+    #temp-now {
+        grid-template-columns: 50%;
+        grid-template-rows: 1fr 1fr 1fr;
+        /* place-content: center; */
+    }
+
+    #temp-now::before{
+        display: none;
+    }
+
+    #location {
+        padding: 0;
+        margin: auto;
+        /* grid-row: 1/2; */
+    }
+
+    #temperature {
+        margin: auto;
+        /* line-height: 6rem; */
+        grid-row: 2/4;
+    }
+
+    #stats {
+        grid-column: 2/3;
+        grid-row: 1/4;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        padding-left: 12.5%;
+        gap: 1.5rem;
+    }
+
+    #stats .info {
+        width: 18rem;
+    }
+
+    #air-info {
+        gap: 4rem;
+    }
+
+    .time {
+        justify-content: space-around;
+    }
+
+    #week-weather {
+        margin-top: 2.5rem;
+    }
+}
