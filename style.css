@@ -80,6 +80,11 @@ main {
     font-size: 1.4rem;
     color: #C2BFF4;
 }
+
+#city:hover {
+    cursor: pointer;
+}
+
 #temperature {
     gap: .4rem;
     color: #fff;
@@ -101,11 +106,11 @@ main {
     font-size: 2rem;
 }
 
-#min-temp {
+.min-temp {
     color: #C2BFF4;
 }
 
-#max-temp {
+.max-temp {
     color: #FFFFFF;
 }
 
