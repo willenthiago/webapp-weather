@@ -11,7 +11,9 @@
 :root {
     font-size: 62.5%;
     font-family: Lato, sans-serif;
-    
+    --pos-x:10;
+    --start:-100;
+    --end:100;
 }
 
 html {
@@ -146,12 +148,12 @@ main {
 }
 
 .text .number {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     color: #E7E6FB;
 }
 
 .unit {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: #DAD8F7;
 }
@@ -177,7 +179,6 @@ main {
 }
 .text-title {
     font-size: 1.8rem;
-    color: #87EBCD;
 }
 
 .text-number {
@@ -210,7 +211,7 @@ sub {
 }
 
 .sun-chart {
-    --pos-x: 50;
+    var(--pos-x): 50;
     margin: auto;
     position: relative;
     width: 21.6rem;
@@ -228,7 +229,7 @@ sub {
     left: 50%;
     margin: -0.6rem;
 
-    transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180))) translate(10.7rem);
+    transform: rotate(calc(1deg * (((var(--end) - var(--pos-x)) / var(--start)) * 180))) translate(10.7rem);
 }
 
 .chart {

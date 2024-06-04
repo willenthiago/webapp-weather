@@ -11,32 +11,19 @@ const humidity = document.getElementById('humidity')
 const rainProb = document.getElementById('rain-prob')
 let latitude = -15.7934036
 let longitude = -47.8823172
-
-// Sun time info
-const timeNow = document.getElementById('time-now')
 const sunriseBox = document.getElementById('sunrise')
 const sunsetBox = document.getElementById('sunset')
 
-const date = new Date()
-const day = date.getDay()
-const hour = date.getHours()
-const min = date.getMinutes()
 
-timeNow.innerHTML = `${hour}:${min}`
-
-//  qualidade do ar
+//  air quality info
 const quality = document.getElementById('air-quality-info')
 const airIndex = document.getElementById('air-quality-index')
-const pm2 = document.getElementById('pm2')
 const pm2Info = document.getElementById('pm2-info')
-const pm10 = document.getElementById('pm10')
 const pm10Info = document.getElementById('pm10-info')
-const so2 = document.getElementById('dioxide-sulfo')
 const so2Info = document.getElementById('so-info')
-const no2 = document.getElementById('dioxide-nitro')
 const no2Info = document.getElementById('no-info')
-const ozone = document.getElementById('ozone')
 const ozoneInfo = document.getElementById('ozone-info')
+const coInfo = document.getElementById('co-info')
 
 //  week-weather info
 
@@ -56,49 +43,9 @@ const day4Min = document.getElementById('day4-min')
 const day5Max = document.getElementById('day5-max')
 const day5Min = document.getElementById('day5-min')
 
-//  set week days
 
-const day3 = document.getElementById('day3-title')
-const day4 = document.getElementById('day4-title')
-const day5 = document.getElementById('day5-title')
+const root = document.documentElement
 
-switch(day){
-    case 1:
-        day3.innerText = 'Quarta'
-        day4.innerText = 'Quinta'
-        day5.innerText = 'Sexta'
-    break;
-    case 2:
-        day3.innerText = 'Quinta'
-        day4.innerText = 'Sexta'
-        day5.innerText = 'Sábado'
-    break;
-    case 3:
-        day3.innerText = 'Sexta'
-        day4.innerText = 'Sábado'
-        day5.innerText = 'Domingo'
-    break;
-    case 4:
-        day3.innerText = 'Sábado'
-        day4.innerText = 'Domingo'
-        day5.innerText = 'Segunda'
-    break;
-    case 5:
-        day3.innerText = 'Domingo'
-        day4.innerText = 'Segunda'
-        day5.innerText = 'Terça'
-    break;
-    case 6:
-        day3.innerText = 'Segunda'
-        day4.innerText = 'Terça'
-        day5.innerText = 'Quarta'
-    break;
-    case 7:
-        day3.innerText = 'Terça'
-        day4.innerText = 'Quarta'
-        day5.innerText = 'Quinta'
-    break;
-}
 
 // definindo localização
 
@@ -123,8 +70,10 @@ async function getCoord(city){
 
     getCurrentWeather(latitude,longitude)
     getWeekWeather(latitude,longitude)
+    getAirQuality(latitude,longitude)
 }
 
+// definindo clima atual
 async function getCurrentWeather(latitude,longitude){
     let currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=pt_br`
 
@@ -150,15 +99,20 @@ function setCurrentWeather(currentWeather){
     let sunriseTime = new Date(sunriseUnix*1000)
     let sunriseHour = sunriseTime.getHours()
     let sunriseMin = sunriseTime.getMinutes()
+    let sunriseChart = ((sunriseHour*60)+sunriseMin)/100
     sunriseBox.innerText = `${sunriseHour}:${sunriseMin}`
+    // root.style.setProperty('--start', sunriseChart)
 
     // definindo sunset
     let sunsetTime = new Date(sunsetUnix*1000)
     let sunsetHour = sunsetTime.getHours()
     let sunsetMin = sunsetTime.getMinutes()
+    let sunsetChart = ((sunsetHour*60)+sunsetMin)/100
     sunsetBox.innerText = `${sunsetHour}:${sunsetMin}`
+    // root.style.setProperty('--end', sunsetChart)
 }
  
+// definindo clima da semana
 async function getWeekWeather(latitude,longitude){
     let weekWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=pt_br&cnt=5`
 
@@ -170,14 +124,19 @@ async function getWeekWeather(latitude,longitude){
 
 function setWeekWeather(weekWeather){
     todayWeather.setAttribute('src', `https://openweathermap.org/img/wn/${weekWeather.list[0].weather[0].icon}.png`)
+    todayWeather.setAttribute('title', `${weekWeather.list[0].weather[0].description}`)
 
     d2Weather.setAttribute('src', `https://openweathermap.org/img/wn/${weekWeather.list[1].weather[0].icon}.png`)
+    d2Weather.setAttribute('title', `${weekWeather.list[1].weather[0].description}`)
 
     d3Weather.setAttribute('src', `https://openweathermap.org/img/wn/${weekWeather.list[2].weather[0].icon}.png`)
+    d3Weather.setAttribute('title', `${weekWeather.list[2].weather[0].description}`)
 
     d4Weather.setAttribute('src', ` https://openweathermap.org/img/wn/${weekWeather.list[3].weather[0].icon}.png`)
+    d4Weather.setAttribute('title', `${weekWeather.list[3].weather[0].description}`)
 
     d5Weather.setAttribute('src', ` https://openweathermap.org/img/wn/${weekWeather.list[4].weather[0].icon}.png`)
+    d5Weather.setAttribute('title', `${weekWeather.list[4].weather[0].description}`)
 
     day2Max.innerText = weekWeather.list[1].main.temp_max.toFixed(1)
     day2Min.innerText = weekWeather.list[1].main.temp_min.toFixed(1)
@@ -187,4 +146,185 @@ function setWeekWeather(weekWeather){
     day4Min.innerText = weekWeather.list[3].main.temp_max.toFixed(1)
     day5Max.innerText = weekWeather.list[4].main.temp_max.toFixed(1)
     day5Min.innerText = weekWeather.list[4].main.temp_max.toFixed(1)
+
+    const today = new Date()
+    const day = today.getDay()
+    switch(day){
+        case 1:
+            document.getElementById('day3-title').innerText = 'Quarta'
+            document.getElementById('day4-title').innerText = 'Quinta'
+            document.getElementById('day5-title').innerText = 'Sexta'
+        break;
+        case 2:
+            document.getElementById('day3-title').innerText = 'Quinta'
+            document.getElementById('day4-title').innerText = 'Sexta'
+            document.getElementById('day5-title').innerText = 'Sábado'
+        break;
+        case 3:
+            document.getElementById('day3-title').innerText = 'Sexta'
+            document.getElementById('day4-title').innerText = 'Sábado'
+            document.getElementById('day5-title').innerText = 'Domingo'
+        break;
+        case 4:
+            document.getElementById('day3-title').innerText = 'Sábado'
+            document.getElementById('day4-title').innerText = 'Domingo'
+            document.getElementById('day5-title').innerText = 'Segunda'
+        break;
+        case 5:
+            document.getElementById('day3-title').innerText = 'Domingo'
+            document.getElementById('day4-title').innerText = 'Segunda'
+            document.getElementById('day5-title').innerText = 'Terça'
+        break;
+        case 6:
+            document.getElementById('day3-title').innerText = 'Segunda'
+            document.getElementById('day4-title').innerText = 'Terça'
+            document.getElementById('day5-title').innerText = 'Quarta'
+        break;
+        case 7:
+            document.getElementById('day3-title').innerText = 'Terça'
+            document.getElementById('day4-title').innerText = 'Quarta'
+            document.getElementById('day5-title').innerText = 'Quinta'
+        break;
+    }
 }
+
+// definindo qualidade do ar
+async function getAirQuality(latitude,longitude){
+    let airUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+
+    response = await fetch(airUrl)
+    const airQuality = await response.json()
+
+    setAirQualityIndex(airQuality)
+}
+
+function setAirQualityIndex(airQuality){
+    let index = airQuality.list[0].main.aqi
+    airIndex.innerText = index
+
+    switch(index){
+        case 1:
+            quality.innerText = 'Ótima'
+            quality.style.color = '#87EBCD'
+        break;
+        case 2:
+            quality.innerText = 'Boa'
+            quality.style.color = '#c0eb87'
+        break;
+        case 3:
+            quality.innerText = 'Moderado'
+            quality.style.color = 'yellow'
+        break;
+        case 4:
+            quality.innerText = "Ruim"
+            quality.style.color = 'orange'
+        break;
+        case 5:
+            quality.innerText = 'Péssima'
+            quality.style.color = 'red'
+        break;
+    }
+
+    // definindo pm2.5
+    let pm2 = airQuality.list[0].components.pm2_5
+    pm2Info.innerText = pm2.toFixed(1)
+    if(pm2 >= 0 && pm2 < 10){
+        pm2Info.style.color = '#87EBCD'
+    } else if(pm2 > 10 && pm2 < 25){
+        pm2Info.style.color = '#c0eb87'
+    } else if(pm2 > 25 && pm2 < 50){
+        pm2Info.style.color = 'yellow'
+    } else if(pm2 > 50 && pm2 < 75){
+        pm2Info.style.color = 'orange'
+    } else if(pm2 >= 75){
+        pm2Info.style.color = 'red'
+    }
+
+    // definindo pm10
+    let pm10 = airQuality.list[0].components.pm10
+    pm10Info.innerText = pm10.toFixed(1)
+    if(pm10 >= 0 && pm2 < 10){
+        pm10Info.style.color = '#87EBCD'
+    } else if(pm10 > 10 && pm10 < 25){
+        pm10Info.style.color = '#c0eb87'
+    } else if(pm10 > 25 && pm10 < 50){
+        pm10Info.style.color = 'yellow'
+    } else if(pm10 > 50 && pm10 < 75){
+        pm10Info.style.color = 'orange'
+    } else if(pm10 >= 75){
+        pm10Info.style.color = 'red'
+    }
+
+    // definindo so2
+    let so2 = airQuality.list[0].components.so2
+    so2Info.innerText = so2.toFixed(1)
+    if(so2 >= 0 && so2 < 20){
+        so2Info.style.color = '#87EBCD'
+    } else if(so2 > 20 && so2 < 80){
+        so2Info.style.color = '#c0eb87'
+    } else if(so2 > 80 && so2 < 250){
+        so2Info.style.color = 'yellow'
+    } else if(so2 > 250 && so2 < 350){
+        so2Info.style.color = 'orange'
+    } else if(so2 >= 350){
+        so2Info.style.color = 'red'
+    }
+
+    // definindo no2
+    let no2 = airQuality.list[0].components.no2
+    no2Info.innerText = no2.toFixed(1)
+    if(no2 >= 0 && no2 < 20){
+        no2Info.style.color = '#87EBCD'
+    } else if(no2 > 20 && no2 < 80){
+        no2Info.style.color = '#c0eb87'
+    } else if(no2 > 80 && no2 < 250){
+        no2Info.style.color = 'yellow'
+    } else if(no2 > 250 && no2 < 350){
+        no2Info.style.color = 'orange'
+    } else if(no2 >= 350){
+        no2Info.style.color = 'red'
+    }
+    
+    // definindo o3
+    let o3 = airQuality.list[0].components.o3
+    ozoneInfo.innerText = o3.toFixed(1)
+    if(o3 >= 0 && o3 < 60){
+        ozoneInfo.style.color = '#87EBCD'
+    } else if(o3 > 60 && o3 < 100){
+        ozoneInfo.style.color = '#c0eb87'
+    } else if(o3 > 100 && o3 < 140){
+        ozoneInfo.style.color = 'yellow'
+    } else if(o3 > 140 && o3 < 180){
+        ozoneInfo.style.color = 'orange'
+    } else if(o3 >= 180){
+        ozoneInfo.style.color = 'red'
+    }
+
+    
+    // definindo CO
+    let co = airQuality.list[0].components.co
+    coInfo.innerText = co.toFixed(1)
+    if(co >= 0 && co < 4400){
+        so2Info.style.color = '#87EBCD'
+    } else if(co > 4400 && co < 9400){
+        so2Info.style.color = '#c0eb87'
+    } else if(co > 9400 && co < 12400){
+        so2Info.style.color = 'yellow'
+    } else if(co > 12400 && co < 15400){
+        so2Info.style.color = 'orange'
+    } else if(co >= 15400){
+        so2Info.style.color = 'red'
+    }
+}
+
+// definindo horario do sol// Sun time info
+setInterval(() => {
+    const date = new Date()
+    const hour = date.getHours()
+    const min = date.getMinutes()
+    const time = ((hour*60)+min)/100
+    
+    document.getElementById('time-now').innerHTML = `${hour}:${min}`
+
+    // root.style.setProperty('--pos-x', time)    
+},1000)
