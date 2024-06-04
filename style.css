@@ -114,6 +114,14 @@ main {
     color: #FFFFFF;
 }
 
+.min-temp::after{
+    content: '°';
+}
+
+.max-temp::after {
+    content: '°';
+}
+
 #stats {
     padding: 1rem;
     justify-content: space-between;

@@ -1,3 +1,6 @@
+// api key
+const apiKey = '00a0fcf0a964808654932bc322ab064d'
+
 // Current weather info
 const getLocation = document.getElementById('city');
 const getCurrentTemp = document.getElementById('temp-live')
@@ -6,11 +9,13 @@ const getMaxTemp = document.getElementById('max-temp')
 const windSpeed = document.getElementById('wind-speed')
 const humidity = document.getElementById('humidity')
 const rainProb = document.getElementById('rain-prob')
+let latitude = -15.7934036
+let longitude = -47.8823172
 
 // Sun time info
 const timeNow = document.getElementById('time-now')
-const sunrise = document.getElementById('sunrise')
-const sunset = document.getElementById('sunset')
+const sunriseBox = document.getElementById('sunrise')
+const sunsetBox = document.getElementById('sunset')
 
 const date = new Date()
 const day = date.getDay()
@@ -95,6 +100,91 @@ switch(day){
     break;
 }
 
+// definindo localização
+
 getLocation.addEventListener('click', () => {
-    let city = prompt('Digite a sua cidade: ')
+    let city = ''
+    do{
+       city = prompt('Digite a sua cidade: ')
+    }while(city == '')
+
+    getCoord(city)
 })
+
+async function getCoord(city){
+    let geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
+
+    const response = await fetch(geoUrl)
+    const geoLocation = await response.json()
+    latitude = geoLocation[0].lat
+    longitude = geoLocation[0].lon
+
+    getLocation.innerText = geoLocation[0].name
+
+    getCurrentWeather(latitude,longitude)
+    getWeekWeather(latitude,longitude)
+}
+
+async function getCurrentWeather(latitude,longitude){
+    let currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=pt_br`
+
+    resp = await fetch(currentWeatherUrl)
+    const currentWeather = await resp.json()
+
+    setCurrentWeather(currentWeather)
+}
+
+function setCurrentWeather(currentWeather){
+    getCurrentTemp.innerText = currentWeather.main.temp.toFixed(1)
+    getMaxTemp.innerText = currentWeather.main.temp_max.toFixed(1)
+    getMinTemp.innerText = currentWeather.main.temp_min.toFixed(1)
+    windSpeed.innerText = (currentWeather.wind.speed*3.6).toFixed(1)
+    todayMax.innerText = currentWeather.main.temp_max.toFixed(1)
+    todayMin.innerText = currentWeather.main.temp_min.toFixed(1)
+    humidity.innerHTML = currentWeather.main.humidity
+
+    let sunriseUnix = currentWeather.sys.sunrise
+    let sunsetUnix = currentWeather.sys.sunset
+
+    // definindo sunrise
+    let sunriseTime = new Date(sunriseUnix*1000)
+    let sunriseHour = sunriseTime.getHours()
+    let sunriseMin = sunriseTime.getMinutes()
+    sunriseBox.innerText = `${sunriseHour}:${sunriseMin}`
+
+    // definindo sunset
+    let sunsetTime = new Date(sunsetUnix*1000)
+    let sunsetHour = sunsetTime.getHours()
+    let sunsetMin = sunsetTime.getMinutes()
+    sunsetBox.innerText = `${sunsetHour}:${sunsetMin}`
+}
+ 
+async function getWeekWeather(latitude,longitude){
+    let weekWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric&lang=pt_br&cnt=5`
+
+    resposta = await fetch(weekWeatherUrl)
+    const weekWeather = await resposta.json()
+
+    setWeekWeather(weekWeather)
+} 
+
+function setWeekWeather(weekWeather){
+    todayWeather.setAttribute('src', `https://openweathermap.org/img/wn/${weekWeather.list[0].weather[0].icon}.png`)
+
+    d2Weather.setAttribute('src', `https://openweathermap.org/img/wn/${weekWeather.list[1].weather[0].icon}.png`)
+
+    d3Weather.setAttribute('src', `https://openweathermap.org/img/wn/${weekWeather.list[2].weather[0].icon}.png`)
+
+    d4Weather.setAttribute('src', ` https://openweathermap.org/img/wn/${weekWeather.list[3].weather[0].icon}.png`)
+
+    d5Weather.setAttribute('src', ` https://openweathermap.org/img/wn/${weekWeather.list[4].weather[0].icon}.png`)
+
+    day2Max.innerText = weekWeather.list[1].main.temp_max.toFixed(1)
+    day2Min.innerText = weekWeather.list[1].main.temp_min.toFixed(1)
+    day3Max.innerText = weekWeather.list[2].main.temp_max.toFixed(1)
+    day3Min.innerText = weekWeather.list[2].main.temp_min.toFixed(1)
+    day4Max.innerText = weekWeather.list[3].main.temp_max.toFixed(1)
+    day4Min.innerText = weekWeather.list[3].main.temp_max.toFixed(1)
+    day5Max.innerText = weekWeather.list[4].main.temp_max.toFixed(1)
+    day5Min.innerText = weekWeather.list[4].main.temp_max.toFixed(1)
+}

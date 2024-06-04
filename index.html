@@ -6,22 +6,22 @@
     <link rel="stylesheet" href="style.css">
     <title>Página do Clima</title>
 </head>
-<body>
+<body onload="getCoord('Brasilia')">
     <main>
         <div id="temp-now" class="bg">
             <!-- campo da localização -->
             <div id="location" class="flex-row">
                 <img src="./assets/pin.svg" alt="icone de local">
-                <strong id="city">Brasília-DF</strong>
+                <strong id="city"></strong>
             </div>
             <!-- campo com a temperatura atual, máxima e mínima -->
             <div id="temperature" class="flex-row">
                 <div class="temp-container flex-column">
                     <!-- temperatura atual -->
-                    <span id="temp-live">27</span>
+                    <span id="temp-live"></span>
                     <div class="minmax">
-                        <span id="max-temp" class="max-temp">max</span>
-                        <span id="min-temp" class="min-temp">min</span>
+                        <span id="max-temp" class="max-temp"></span>
+                        <span id="min-temp" class="min-temp"></span>
                     </div>
                 </div>
                 <span class="celsius">ºC</span>
@@ -32,7 +32,7 @@
                     <div class="left flex-column">
                         <span class="title">Vento</span>
                         <div class="text">
-                            <span id="wind-speed" class="number">17</span>
+                            <span id="wind-speed" class="number"></span>
                             <span class="unit">km/h</span>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                     <div class="left flex-column">
                         <span class="title">Umidade</span>
                         <div class="text">
-                            <span id="humidity" class="number">31</span>
+                            <span id="humidity" class="number"></span>
                             <span class="unit">%</span>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                     <div class="left flex-column">
                         <span class="title">Chuva</span>
                         <div class="text">
-                            <span id="rain-prob" class="number">10</span>
+                            <span id="rain-prob" class="number">?</span>
                             <span class="unit">%</span>
                         </div>
                     </div>
@@ -105,12 +105,12 @@
                     <div class="chart">
                         <img src="assets/grafico-sol.svg" alt="grafico de horario do nascer do sol ate o por do sol">
                     </div>
-                    <time id="time-now" class="now">17:48</time>
+                    <time id="time-now" class="now"></time>
                 </div>
             </div>
             <div class="time">
-                <time id="sunrise" class="sunrise">05:45</time>
-                <time id="sunset" class="sunset">18:23</time>
+                <time id="sunrise" class="sunrise"></time>
+                <time id="sunset" class="sunset"></time>
             </div>
         </div>
         <div id="week-weather" class="bg flex-row">
@@ -132,7 +132,7 @@
             </div>
             <div id="day-3" class="day flex-column">
                 <span id="day3-title" class="unit">D+2</span>
-                <img id="day2-weather-icon" src="assets/nublado.svg" alt="">
+                <img id="day3-weather-icon" src="assets/nublado.svg" alt="">
                 <div class="minmax">
                     <span id="day3-max" class="max-temp">max</span>
                     <span id="day3-min" class="min-temp">min</span>
@@ -140,7 +140,7 @@
             </div>
             <div id="day-4" class="day flex-column">
                 <span id="day4-title" class="unit">D+3</span>
-                <img id="day2-weather-icon" src="assets/trovoada.svg" alt="">
+                <img id="day4-weather-icon" src="assets/trovoada.svg" alt="">
                 <div class="minmax">
                     <span id="day4-max" class="max-temp">max</span>
                     <span id="day4-min" class="min-temp">min</span>
@@ -148,7 +148,7 @@
             </div>
             <div id="day-5" class="day flex-column">
                 <span id="day5-title" class="unit">D+4</span>
-                <img id="day2-weather-icon" src="assets/sol-coberto.svg" alt="">
+                <img id="day5-weather-icon" src="assets/sol-coberto.svg" alt="">
                 <div class="minmax">
                     <span id="day5-max" class="max-temp">max</span>
                     <span id="day5-min" class="min-temp">min</span>
