@@ -211,7 +211,7 @@ sub {
 }
 
 .sun-chart {
-    var(--pos-x): 50;
+    /* var(--pos-x): 50; */
     margin: auto;
     position: relative;
     width: 21.6rem;
