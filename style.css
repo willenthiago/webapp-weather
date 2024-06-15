@@ -22,11 +22,11 @@ html {
 
 body {
     font-size: 1.6rem;
-    background-color: #8E87FA;
+    /* background-color: #8E87FA; */
 }
 
 main {
-    min-height: 100vh;
+    min-height: 96.1vh;
     background: 
         url(./assets/Background.png)
         no-repeat
@@ -64,6 +64,7 @@ main {
     display: grid;
     grid-template-rows: max-content 1fr max-content;
 }
+
 #temp-now::before {
     content: "";
     width: 17.6rem;
@@ -73,11 +74,13 @@ main {
     top: -5.6rem;
     left: -5.6rem;
 }
+
 #location {
     justify-self: end;
     padding: 3.2rem 3.2rem 0;
     gap: 0.4rem;
 }
+
 #location strong {
     font-size: 1.4rem;
     color: #C2BFF4;
@@ -177,6 +180,7 @@ main {
 .air-green {
     color: #87EBCD;
 }
+
 .text-title {
     font-size: 1.8rem;
 }
@@ -307,6 +311,24 @@ sub {
     gap: 1.6rem; 
 }
 
+footer {
+    background-color: #8E87FA;
+    padding: .5rem 1rem;
+    justify-content: space-between !important;
+    font-size: 1.4rem;
+    text-align: center;
+    color: #aaa;
+    align-content: center;
+}
+
+footer a, footer span {
+    color: #fff;
+    text-decoration: none;
+}
+
+.g2 {
+    gap: 1.5rem;
+}
 
 @media (min-width: 1200px) {
     main {
