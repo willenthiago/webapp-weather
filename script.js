@@ -1,4 +1,4 @@
-// api key
+// api keys
 const apiKey = 'd8d83803726a4fafadf221152241406 '
 const geoApiKey = '00a0fcf0a964808654932bc322ab064d'
 
@@ -24,7 +24,6 @@ const ozoneInfo = document.getElementById('ozone-info')
 const coInfo = document.getElementById('co-info')
 
 //  week-weather info
-
 const todayWeather = document.getElementById('today-weather-icon')
 const d2Weather = document.getElementById('day2-weather-icon')
 const d3Weather = document.getElementById('day3-weather-icon')
@@ -41,22 +40,18 @@ const day4Min = document.getElementById('day4-min')
 const day5Max = document.getElementById('day5-max')
 const day5Min = document.getElementById('day5-min')
 
-const root = document.documentElement
-
 // definindo localização
 getLocation.addEventListener('click', () => {
     let city = ''
     do{
+        // recebendo dado do usuário
        city = prompt('Digite a sua cidade: ')
     }while(city == '')
 
     getCoord(city)
-    // getWeather(city)
-    // getHistoricalWeather(city)
-    // getAirQuality(city)
 })
-
 async function getCoord(city){
+    // requisição da api de geolocalização para recuperar latitude e longitude da localização
     let geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey}`
 
     response = await fetch(geoUrl)
@@ -70,17 +65,14 @@ async function getCoord(city){
 
 // definindo clima atual
 async function getWeather(latitude,longitude) {
+    // requisição da previsão de tempo através da latitude e longitude.
     let currentWeatherUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&aqi=yes&days=5`
 
     resp = await fetch(currentWeatherUrl)
     const weather = await resp.json()
 
     city = weather.location.name
-    // const uf = weather.location.region.split(' ')
-    // const str1 = uf.shift()
-    // const str2 = uf.pop()
-    // const state = str1.charAt(0)+str2.charAt(0)
-    getLocation.innerHTML = `${city}`
+    getLocation.innerHTML = `${city} - ${weather.location.region}`
 
     setCurrentWeather(weather)
     setWeekWeather(weather)
@@ -92,25 +84,30 @@ function setCurrentWeather(weather) {
     getMinTemp.innerText = weather.forecast.forecastday[0].day.mintemp_c
     windSpeed.innerText = weather.current.wind_kph
     humidity.innerHTML = weather.current.humidity
-    rainProb.innerHTML = weather.current.precip_mm
+    rainProb.innerHTML = weather.forecast.forecastday[0].day.daily_chance_of_rain
     todayMax.innerText = weather.forecast.forecastday[0].day.maxtemp_c
     todayMin.innerText = weather.forecast.forecastday[0].day.mintemp_c
 
-    const sunrise = weather.forecast.forecastday[0].astro.sunrise
-    const sunset = weather.forecast.forecastday[0].astro.sunset
-
-    sunriseBox.innerHTML = sunrise
+    // formatando sunrise e sunset
+    let sunrise = weather.forecast.forecastday[0].astro.sunrise.split(' ')
+    let sunset = weather.forecast.forecastday[0].astro.sunset.split(' ')
+    if(sunset[1] == 'PM'){
+        const sunsetTime = sunset[0].split(':')
+        sunsetHour = Number(sunsetTime[0])
+        sunsetMin = Number(sunsetTime[1])
+        sunsetHour += 12
+        sunset = `${sunsetHour}:${sunsetMin}`
+    }
+    sunriseBox.innerHTML = sunrise[0]
     sunsetBox.innerHTML = sunset
 
-    // definindo horario do sol// Sun time info
+    // definindo horario atual - Sun time info
     setInterval(() => {
         const date = new Date()
         const hour = date.getHours()
         const min = date.getMinutes()
 
         document.getElementById('time-now').innerHTML = `${hour}:${min}`
-
-        // root.style.setProperty('--pos-x', time)    
     }, 1000)
 }
 
@@ -184,7 +181,6 @@ function setWeekWeather(weekWeather) {
 
 // definindo qualidade do ar
 function setAirQualityIndex(airQuality) {
-    console.log();
     let index = airQuality.current.air_quality['us-epa-index']
     airIndex.innerText = index
 

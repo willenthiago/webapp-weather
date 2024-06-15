@@ -21,12 +21,15 @@ html {
 }
 
 body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 96% 1fr;
     font-size: 1.6rem;
     /* background-color: #8E87FA; */
 }
 
 main {
-    min-height: 96.1vh;
+    /* min-height: 96.8vh; */
     background: 
         url(./assets/Background.png)
         no-repeat
@@ -315,10 +318,9 @@ footer {
     background-color: #8E87FA;
     padding: .5rem 1rem;
     justify-content: space-between !important;
+    align-items: center;
     font-size: 1.4rem;
-    text-align: center;
-    color: #aaa;
-    align-content: center;
+    color: #444;
 }
 
 footer a, footer span {
