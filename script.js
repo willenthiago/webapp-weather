@@ -190,7 +190,7 @@ function setWeekWeather(weekWeather){
 
 // definindo qualidade do ar
 async function getAirQuality(latitude,longitude){
-    let airUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
+    let airUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${apiKey}`
 
     response = await fetch(airUrl)
     const airQuality = await response.json()
@@ -322,7 +322,7 @@ setInterval(() => {
     const date = new Date()
     const hour = date.getHours()
     const min = date.getMinutes()
-    const time = ((hour*60)+min)/100
+    // const time = ((hour*60)+min)/100
     
     document.getElementById('time-now').innerHTML = `${hour}:${min}`
 
