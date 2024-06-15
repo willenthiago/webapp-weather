@@ -57,7 +57,7 @@ getLocation.addEventListener('click', () => {
 })
 
 async function getCoord(city){
-    let geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey}`
+    let geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey}`
 
     response = await fetch(geoUrl)
     const lugar = await response.json()
@@ -70,7 +70,7 @@ async function getCoord(city){
 
 // definindo clima atual
 async function getWeather(latitude,longitude) {
-    let currentWeatherUrl = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&aqi=yes&days=5`
+    let currentWeatherUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&aqi=yes&days=5`
 
     resp = await fetch(currentWeatherUrl)
     const weather = await resp.json()
