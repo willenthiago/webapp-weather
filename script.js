@@ -59,7 +59,7 @@ getLocation.addEventListener('click', () => {
 })
 
 async function getCoord(city){
-    let geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
+    let geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`
 
     const response = await fetch(geoUrl)
     const geoLocation = await response.json()
