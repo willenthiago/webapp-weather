@@ -41,6 +41,8 @@ const day4Min = document.getElementById('day4-min')
 const day5Max = document.getElementById('day5-max')
 const day5Min = document.getElementById('day5-min')
 
+let timeZoneId = null
+
 // definindo localização
 getLocation.addEventListener('click', () => {
     let city = ''
@@ -79,10 +81,14 @@ async function getWeather(latitude,longitude) {
     
     const city = weather.location.name
     getLocation.innerHTML = `${city} - ${weather.location.region}`
+
+    timeZoneId = weather.location.tz_id
     
     setCurrentWeather(weather)
     setWeekWeather(weather)
     setAirQualityIndex(weather)
+    setInterval(updateTime, 100) // atualiza horário atual a cada 1seg
+
     } catch (error){
         console.log(`Erro ao buscar dados: ${error}`);
     }
@@ -106,7 +112,6 @@ function setCurrentWeather(weather) {
     if(sunset[1] == 'PM'){
         const sunsetTime = sunset[0].split(':')
         let sunsetHour = Number(sunsetTime[0])
-        console.log(sunsetHour);
         let sunsetMin = Number(sunsetTime[1])
         sunsetHour += 12
         sunset = `${sunsetHour}:${sunsetMin}`
@@ -114,14 +119,19 @@ function setCurrentWeather(weather) {
     sunriseBox.innerHTML = sunrise[0]
     sunsetBox.innerHTML = sunset
 
-    // definindo horario atual - Sun time info
-    setInterval(() => {
-        const date = new Date()
-        const tz = new Intl.DateTimeFormat('pt-br', {timeStyle: 'short',
-            timeZone: `${weather.location.tz_id}`}).format(date)
+}
 
-        document.getElementById('time-now').innerHTML = `${tz}`
-    }, 74)
+// definindo horario atual - Sun time info
+function updateTime(){
+    if(timeZoneId){
+        const date = new Date()
+        const formattedTime = new Intl.DateTimeFormat('pt-br', {
+            timeStyle: 'short',
+            timeZone: timeZoneId
+        }).format(date)
+        
+        document.getElementById('time-now').innerText = formattedTime
+    }
 }
 
 // definindo clima da semana
