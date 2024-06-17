@@ -25,11 +25,11 @@ body {
     display: grid;
     grid-template-rows: 96% 1fr;
     font-size: 1.6rem;
-    /* background-color: #8E87FA; */
+    background-color: #8E87FA;
 }
 
 main {
-    /* min-height: 96.8vh; */
+    min-height: 96.8vh;
     background: 
         url(./assets/Background.png)
         no-repeat
@@ -82,6 +82,10 @@ main {
     justify-self: end;
     padding: 3.2rem 3.2rem 0;
     gap: 0.4rem;
+}
+
+#location img {
+    filter: sepia() contrast(100%) saturate(400%);
 }
 
 #location strong {
