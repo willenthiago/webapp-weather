@@ -381,6 +381,7 @@ footer a, footer span {
 
 @media (max-width: 798px) {
     body {
+        display: block;
         margin: auto;
     }
     main {
