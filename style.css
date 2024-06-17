@@ -16,10 +16,6 @@
     --end:100;
 }
 
-html {
-    min-width: 45rem;
-}
-
 body {
     min-height: 100vh;
     display: grid;
@@ -37,6 +33,8 @@ main {
     display: grid;
     place-content: center;
     gap: 2.4rem;
+    grid-template-columns: 48rem 27.7rem 27.7rem;
+    grid-template-rows: 24.4rem;
 }
 
 .bg {
@@ -61,8 +59,7 @@ main {
     background: url(./assets/temp-bg.png)
     no-repeat
     center/cover;
-    /* width: 48rem; */
-    /* height: 48rem; */
+    grid-row: 1/3;
     position: relative;
     display: grid;
     grid-template-rows: max-content 1fr max-content;
@@ -304,7 +301,7 @@ sub {
 }
 
 #week-weather {
-    /* width: 57.8rem; */
+    grid-column: 2/4;
     padding: 4rem;
     gap: 1.2rem;
 }
@@ -340,25 +337,15 @@ footer a, footer span {
     gap: 1.5rem;
 }
 
-@media (min-width: 1200px) {
-    main {
-        grid-template-columns: 48rem 27.7rem 27.7rem;
-        grid-template-rows: 24.4rem;
-    }
-
-    #temp-now {
-        grid-row: 1/3;
-    }
-
-    #week-weather {
-        grid-column: 2/4;
-    }
-}
-
 @media (min-width: 798px) and (max-width: 1200px){
     main {
         grid-template-columns: 27.7rem 27.7rem;
         grid-template-rows: 24.4rem 24.4rem;
+    }
+
+    #location {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
     }
 
     #temp-now {
@@ -368,6 +355,7 @@ footer a, footer span {
 
     #temperature{
         margin-top: -.1rem;
+        padding-top: 1rem;
     }
 
     .temp-container {
@@ -379,7 +367,7 @@ footer a, footer span {
     }
 
     #stats {
-        padding: 1.2rem 2rem;
+        padding: .2rem 2rem 1.2rem;
     }
 
     #stats .info {
@@ -392,16 +380,20 @@ footer a, footer span {
 }
 
 @media (max-width: 798px) {
+    body {
+        margin: auto;
+    }
     main {
         padding: 5rem;
-        grid-template-columns: 48rem;
-        grid-template-rows: 24.4rem 24.4rem 24.4rem 24.4rem;
+        grid-template-columns: 30rem;
+        grid-template-rows: 48rem 24.4rem 24.4rem 24.4rem;
     }
 
     #temp-now {
-        grid-template-columns: 50%;
-        grid-template-rows: 1fr 1fr 1fr;
-        /* place-content: center; */
+        grid-row: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     #temp-now::before{
@@ -409,39 +401,48 @@ footer a, footer span {
     }
 
     #location {
-        padding: 0;
-        margin: auto;
+        /* padding: 0; */
+        margin: 0 auto -2rem;
         /* grid-row: 1/2; */
     }
 
     #temperature {
         margin: auto;
-        /* line-height: 6rem; */
-        grid-row: 2/4;
     }
 
     #stats {
-        grid-column: 2/3;
-        grid-row: 1/4;
         display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
-        padding-left: 12.5%;
         gap: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     #stats .info {
         width: 18rem;
     }
 
-    #air-info {
-        gap: 4rem;
-    }
-
     .time {
-        justify-content: space-around;
+        justify-content: space-between;
     }
 
     #week-weather {
-        margin-top: 2.5rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        grid-column: auto;
+    }
+    
+    #day-1, #day-4, #day-5 {
+        display: none;
+    }
+
+    footer {
+        padding: 1rem;
+        flex-direction: column !important;
+        gap: 1rem;
+    }
+
+    .dev {
+        margin-left: 0 !important;
     }
 }

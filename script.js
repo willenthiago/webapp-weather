@@ -41,6 +41,9 @@ const day4Min = document.getElementById('day4-min')
 const day5Max = document.getElementById('day5-max')
 const day5Min = document.getElementById('day5-min')
 
+
+// Definindo a função no escopo global
+window.getCoord = getCoord
 let timeZoneId = null
 
 // definindo localização
@@ -61,17 +64,19 @@ async function getCoord(city){
         const response = await fetch(geoUrl)
         const lugar = await response.json()
         
+        const city = lugar[0].local_names.pt
+
         const lat = lugar[0].lat
         const lon = lugar[0].lon
         
-        getWeather(lat,lon)
+        getWeather(lat,lon,city)
     } catch(error){
         alert('Não foi possível identificar o lugar de sua escolha. Tente novamente')
     }
 }
 
 // definindo clima atual
-async function getWeather(latitude,longitude) {
+async function getWeather(latitude,longitude,city) {
     // requisição da previsão de tempo através da latitude e longitude.
     try{
     let currentWeatherUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&aqi=yes&days=5`
@@ -79,7 +84,6 @@ async function getWeather(latitude,longitude) {
     const resp = await fetch(currentWeatherUrl)
     const weather = await resp.json()
     
-    const city = weather.location.name
     getLocation.innerHTML = `${city} - ${weather.location.region}`
 
     timeZoneId = weather.location.tz_id
@@ -93,8 +97,6 @@ async function getWeather(latitude,longitude) {
         console.log(`Erro ao buscar dados: ${error}`);
     }
 }
-// Definindo a função no escopo global
-window.getWeather = getWeather
 
 function setCurrentWeather(weather) {
     getCurrentTemp.innerText = weather.current.temp_c
