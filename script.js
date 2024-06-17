@@ -112,7 +112,7 @@ function setCurrentWeather(weather) {
     if(sunset[1] == 'PM'){
         const sunsetTime = sunset[0].split(':')
         let sunsetHour = Number(sunsetTime[0])
-        let sunsetMin = Number(sunsetTime[1])
+        let sunsetMin = sunsetTime[1]
         sunsetHour += 12
         sunset = `${sunsetHour}:${sunsetMin}`
     }
