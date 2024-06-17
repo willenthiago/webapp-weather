@@ -1,6 +1,7 @@
 // api keys
-const apiKey = 'd8d83803726a4fafadf221152241406 '
-const geoApiKey = '00a0fcf0a964808654932bc322ab064d'
+import config from "./config.js";
+const apiKey = config.API_KEY
+const geoApiKey = config.GEO_KEY
 
 // Current weather info
 const getLocation = document.getElementById('city');
@@ -40,6 +41,8 @@ const day4Min = document.getElementById('day4-min')
 const day5Max = document.getElementById('day5-max')
 const day5Min = document.getElementById('day5-min')
 
+let timeZoneId = null
+
 // definindo localização
 getLocation.addEventListener('click', () => {
     let city = ''
@@ -54,30 +57,45 @@ async function getCoord(city){
     // requisição da api de geolocalização para recuperar latitude e longitude da localização
     let geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${geoApiKey}`
 
-    response = await fetch(geoUrl)
-    const lugar = await response.json()
-
-    const lat = lugar[0].lat
-    const lon = lugar[0].lon
-
-    getWeather(lat,lon)
+    try{    
+        const response = await fetch(geoUrl)
+        const lugar = await response.json()
+        
+        const lat = lugar[0].lat
+        const lon = lugar[0].lon
+        
+        getWeather(lat,lon)
+    } catch(error){
+        alert('Não foi possível identificar o lugar de sua escolha. Tente novamente')
+    }
 }
 
 // definindo clima atual
 async function getWeather(latitude,longitude) {
     // requisição da previsão de tempo através da latitude e longitude.
+    try{
     let currentWeatherUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&aqi=yes&days=5`
 
-    resp = await fetch(currentWeatherUrl)
+    const resp = await fetch(currentWeatherUrl)
     const weather = await resp.json()
-
-    city = weather.location.name
+    
+    const city = weather.location.name
     getLocation.innerHTML = `${city} - ${weather.location.region}`
 
+    timeZoneId = weather.location.tz_id
+    
     setCurrentWeather(weather)
     setWeekWeather(weather)
     setAirQualityIndex(weather)
+    setInterval(updateTime, 100) // atualiza horário atual a cada 1seg
+
+    } catch (error){
+        console.log(`Erro ao buscar dados: ${error}`);
+    }
 }
+// Definindo a função no escopo global
+window.getWeather = getWeather
+
 function setCurrentWeather(weather) {
     getCurrentTemp.innerText = weather.current.temp_c
     getMaxTemp.innerText = weather.forecast.forecastday[0].day.maxtemp_c
@@ -93,22 +111,27 @@ function setCurrentWeather(weather) {
     let sunset = weather.forecast.forecastday[0].astro.sunset.split(' ')
     if(sunset[1] == 'PM'){
         const sunsetTime = sunset[0].split(':')
-        sunsetHour = Number(sunsetTime[0])
-        sunsetMin = Number(sunsetTime[1])
+        let sunsetHour = Number(sunsetTime[0])
+        let sunsetMin = Number(sunsetTime[1])
         sunsetHour += 12
         sunset = `${sunsetHour}:${sunsetMin}`
     }
     sunriseBox.innerHTML = sunrise[0]
     sunsetBox.innerHTML = sunset
 
-    // definindo horario atual - Sun time info
-    setInterval(() => {
-        const date = new Date()
-        const hour = date.getHours()
-        const min = date.getMinutes()
+}
 
-        document.getElementById('time-now').innerHTML = `${hour}:${min}`
-    }, 1000)
+// definindo horario atual - Sun time info
+function updateTime(){
+    if(timeZoneId){
+        const date = new Date()
+        const formattedTime = new Intl.DateTimeFormat('pt-br', {
+            timeStyle: 'short',
+            timeZone: timeZoneId
+        }).format(date)
+        
+        document.getElementById('time-now').innerText = formattedTime
+    }
 }
 
 // definindo clima da semana

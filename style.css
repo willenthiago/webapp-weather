@@ -316,11 +316,15 @@ sub {
 
 footer {
     background-color: #8E87FA;
-    padding: .5rem 1rem;
+    padding: 0 2rem;
     justify-content: space-between !important;
     align-items: center;
     font-size: 1.4rem;
     color: #444;
+}
+
+footer .dev {
+    margin-left: -14.5rem;
 }
 
 footer a, footer span {
