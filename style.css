@@ -407,7 +407,13 @@ footer a, footer span {
         margin: 0 auto -2rem;
         /* grid-row: 1/2; */
     }
-
+@supports (-webkit-overflow-scrolling: touch) {
+  .absolute-element {
+    /* Ajustes específicos para Safari iOS */
+    position: absolute;
+    transform: translateZ(0);
+  }
+}
     #temperature {
         margin: auto;
     }
