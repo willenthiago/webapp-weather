@@ -421,11 +421,7 @@ footer a, footer span {
     #stats .info {
         width: 18rem;
     }
-
-    .time {
-        /* justify-content: space-between; */
-    }
-
+    
     #week-weather {
         display: flex;
         flex-direction: row;
