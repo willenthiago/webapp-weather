@@ -425,7 +425,6 @@ footer a, footer span {
 
     .time {
         display: -webkit-flex;
-        display: -webkit-box;
         display: -ms-flexbox;
         transform: translateZ(0); //correção de renderização do elemento
     }
