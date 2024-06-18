@@ -426,7 +426,6 @@ footer a, footer span {
         display: -webkit-flex;
         display: -ms-flexbox;
         transform: translateZ(0); //correção de renderização do elemento
-        -webkit-margin-bottom-collapse: collapse;
     }
     
     #week-weather {
@@ -452,7 +451,7 @@ footer a, footer span {
     }
 }
 @supports (-webkit-overflow-scrolling: touch) {
-  .absolute-element {
+  .time {
     /* Ajustes específicos para Safari iOS */
     position: absolute;
     transform: translateZ(0);
