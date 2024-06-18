@@ -422,6 +422,13 @@ footer a, footer span {
     #stats .info {
         width: 18rem;
     }
+
+    .time {
+        display: -webkit-flex;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        -webkit-justify-conternt: space-between;
+    }
     
     #week-weather {
         display: flex;
