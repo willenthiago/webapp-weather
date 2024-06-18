@@ -337,8 +337,9 @@ footer a, footer span {
     gap: 1.5rem;
 }
 
-@media (min-width: 798px) and (max-width: 1200px){
+@media (min-width: 768px) and (max-width: 1200px){
     main {
+        padding: 5rem;
         grid-template-columns: 27.7rem 27.7rem;
         grid-template-rows: 24.4rem 24.4rem;
     }
@@ -379,10 +380,10 @@ footer a, footer span {
     }
 }
 
-@media (max-width: 798px) {
+@media (max-width: 767px) {
     body {
         display: block !important;
-        margin: auto;
+        /* margin: auto; */
     }
     main {
         padding: 5rem;
@@ -422,7 +423,7 @@ footer a, footer span {
     }
 
     .time {
-        justify-content: space-between;
+        /* justify-content: space-between; */
     }
 
     #week-weather {
