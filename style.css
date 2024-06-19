@@ -5,15 +5,17 @@
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
+    -webkit-box-flex: inherit;
+    -webkit-box-sizing: border-box;
     -moz-osx-font-smoothing: grayscale;
 }
 
 :root {
     font-size: 62.5%;
     font-family: Lato, sans-serif;
-    --pos-x:10;
-    --start:-100;
-    --end:100;
+    /* --pos-x:10; */
+    /* --start:-100; */
+    /* --end:100; */
 }
 
 body {
@@ -213,13 +215,11 @@ sub {
 
 #sun-time {
     display: grid;
-    grid-template-rows: max-content  1fr;
-    /* width: 27.7rem; */
-    /* height: 24.4rem; */
+    grid-template-rows: 1fr max-content  1fr;
 }
 
 .sun-chart {
-    /* var(--pos-x): 50; */
+    --pos-x: 100;
     margin: auto;
     position: relative;
     width: 21.6rem;
@@ -237,7 +237,7 @@ sub {
     left: 50%;
     margin: -0.6rem;
 
-    transform: rotate(calc(1deg * (((var(--end) - var(--pos-x)) / var(--start)) * 180))) translate(10.7rem);
+    transform: rotate(calc(1deg * (((100 - var(--pos-x)) / -100) * 180))) translate(10.6rem);
 }
 
 .chart {
@@ -422,10 +422,9 @@ footer a, footer span {
         width: 18rem;
     }
 
-    .time {
-        /* justify-content: space-between; */
+    .time{
+        -webkit-margin-bottom-collapse: collapse;
     }
-
     #week-weather {
         display: flex;
         flex-direction: row;

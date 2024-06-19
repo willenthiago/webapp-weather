@@ -63,8 +63,13 @@ async function getCoord(city){
     try{    
         const response = await fetch(geoUrl)
         const lugar = await response.json()
-        
-        const city = lugar[0].local_names.pt
+        // const city = null
+
+        if(lugar[0].local_names.pt){
+            city = lugar[0].local_names.pt
+        } else {
+            city = lugar[0].local_names.en
+        }
 
         const lat = lugar[0].lat
         const lon = lugar[0].lon
@@ -127,6 +132,9 @@ function setCurrentWeather(weather) {
 function updateTime(){
     if(timeZoneId){
         const date = new Date()
+        const hh = date.getHours()
+        const mm = date.getMinutes()
+
         const formattedTime = new Intl.DateTimeFormat('pt-br', {
             timeStyle: 'short',
             timeZone: timeZoneId
