@@ -422,9 +422,12 @@ footer a, footer span {
         width: 18rem;
     }
 
-    .time{
-        -webkit-margin-bottom-collapse: collapse;
+    .time {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        transform: translateZ(0); //correção de renderização do elemento
     }
+    
     #week-weather {
         display: flex;
         flex-direction: row;
@@ -446,4 +449,11 @@ footer a, footer span {
     .dev {
         margin-left: 0 !important;
     }
+}
+@supports (-webkit-overflow-scrolling: touch) {
+  .time {
+    /* Ajustes específicos para Safari iOS */
+    position: absolute;
+    transform: translateZ(0);
+  }
 }
