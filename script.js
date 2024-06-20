@@ -132,8 +132,8 @@ function setCurrentWeather(weather) {
 function updateTime(){
     if(timeZoneId){
         const date = new Date()
-        const hh = date.getHours()
-        const mm = date.getMinutes()
+        // const hh = date.getHours()
+        // const mm = date.getMinutes()
 
         const formattedTime = new Intl.DateTimeFormat('pt-br', {
             timeStyle: 'short',
