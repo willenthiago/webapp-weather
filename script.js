@@ -40,13 +40,25 @@ const day4Max = document.getElementById('day4-max')
 const day4Min = document.getElementById('day4-min')
 const day5Max = document.getElementById('day5-max')
 const day5Min = document.getElementById('day5-min')
-
-
-// Definindo a função no escopo global
-window.getCoord = getCoord
 let timeZoneId = null
+        
+// definindo localização atual usando IP adress
+const getIpAdress = () => {
+    fetch('http://ip-api.com/json/')
+    .then((response) => response.json())
+    .then((data) => {
+        const lat = data.lat
+        const lon = data.lon
+        const city = data.city
+        console.log(data);
+        getWeather(lat, lon, city)
+    })
+    
+}
+// Definindo a função no escopo global
+window.getIpAdress = getIpAdress
 
-// definindo localização
+// definindo localização informada pelo usuário
 getLocation.addEventListener('click', () => {
     let city = ''
     do{
