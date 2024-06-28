@@ -84,7 +84,7 @@ async function getCoord(city){
 async function getWeather(latitude,longitude,city) {
     // requisição da previsão de tempo através da latitude e longitude.
     try{
-    let currentWeatherUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&aqi=yes&days=5`
+    let currentWeatherUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&lang=pt&aqi=yes&days=3`
 
     const resp = await fetch(currentWeatherUrl)
     const weather = await resp.json()
@@ -156,20 +156,21 @@ function setWeekWeather(weekWeather) {
     d3Weather.setAttribute('src', `${weekWeather.forecast.forecastday[2].day.condition.icon}`)
     d3Weather.setAttribute('title', `${weekWeather.forecast.forecastday[2].day.condition.text}`)
 
-    d4Weather.setAttribute('src', `${weekWeather.forecast.forecastday[3].day.condition.icon}`)
+    /* d4Weather.setAttribute('src', `${weekWeather.forecast.forecastday[3].day.condition.icon}`)
     d4Weather.setAttribute('title', `${weekWeather.forecast.forecastday[3].day.condition.text}`)
 
     d5Weather.setAttribute('src', `${weekWeather.forecast.forecastday[4].day.condition.icon}`)
-    d5Weather.setAttribute('title', `${weekWeather.forecast.forecastday[4].day.condition.text}`)
+    d5Weather.setAttribute('title', `${weekWeather.forecast.forecastday[4].day.condition.text}`) */
 
     day2Max.innerText = weekWeather.forecast.forecastday[1].day.maxtemp_c
     day2Min.innerText = weekWeather.forecast.forecastday[1].day.mintemp_c
     day3Max.innerText = weekWeather.forecast.forecastday[2].day.maxtemp_c
     day3Min.innerText = weekWeather.forecast.forecastday[2].day.mintemp_c
-    day4Max.innerText = weekWeather.forecast.forecastday[3].day.maxtemp_c
+    /*day4Max.innerText = weekWeather.forecast.forecastday
+     [3].day.maxtemp_c
     day4Min.innerText = weekWeather.forecast.forecastday[3].day.mintemp_c
     day5Max.innerText = weekWeather.forecast.forecastday[4].day.maxtemp_c
-    day5Min.innerText = weekWeather.forecast.forecastday[4].day.mintemp_c
+    day5Min.innerText = weekWeather.forecast.forecastday[4].day.mintemp_c */
 
     const today = new Date()
     const day = today.getDay()
