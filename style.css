@@ -436,7 +436,7 @@ footer a, footer span {
         grid-column: auto;
     }
     
-    #day-1, #day-4, #day-5 {
+    #day-1, #day-2, #day-3 {
         display: none;
     }
 
