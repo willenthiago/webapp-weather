@@ -94,14 +94,14 @@ async function getWeather(latitude, longitude, city) {
         timeZoneId = weather.location.tz_id
 
         const date = new Date()
-        date.setDate(date.getDate() - 2)
-        const day = date.getDate()
-        const month = date.getMonth() + 1
-        const year = date.getFullYear()
+        const milisegundosDia = 1000 * 60 * 60 * 24
+        const data_final = new Date(date.getTime() - 2 * milisegundosDia)
+        const day = data_final.getDate()
+        const month = data_final.getMonth() + 1
+        const year = data_final.getFullYear()
         const dt = `${year}-${month}-${day}`
         const endDt = `${year}-${month}-${day + 1}`
 
-        console.log(day);
         let historyWeatherUrl = `https://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${latitude},${longitude}&dt=${dt}&end_dt=${endDt}`
 
         const respHist = await fetch(historyWeatherUrl)
