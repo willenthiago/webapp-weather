@@ -67,8 +67,10 @@ async function getCoord(city) {
 
         if (lugar[0].local_names.pt) {
             city = lugar[0].local_names.pt
-        } else {
+        } else if(lugar[0].local_names.en){
             city = lugar[0].local_names.en
+        } else {
+            city = lugar[0].local_names.eu
         }
 
         const lat = lugar[0].lat
@@ -102,7 +104,7 @@ async function getWeather(latitude, longitude, city) {
         const dt = `${year}-${month}-${day}`
         const endDt = `${year}-${month}-${day + 1}`
 
-        let historyWeatherUrl = `https://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${latitude},${longitude}&dt=${dt}&end_dt=${endDt}`
+        let historyWeatherUrl = `https://api.weatherapi.com/v1/history.json?key=${apiKey}&q=${latitude},${longitude}&dt=${dt}&end_dt=${endDt}&lang=pt`
 
         const respHist = await fetch(historyWeatherUrl)
         const histWeather = await respHist.json()
